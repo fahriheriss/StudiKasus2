@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:list_kuliner/http_helper.dart';
 import 'package:list_kuliner/makanan.dart';
 import 'package:list_kuliner/styles.dart';
 
 class DetailPage extends StatelessWidget {
   final Makanan makanan;
+  HttpHelper api = HttpHelper();
 
-  DetailPage({super.key, required this.makanan});
+  DetailPage({Key? key, required this.makanan, required this.api}) : super(key: key);
 
 @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class DetailPage extends StatelessWidget {
             children :[
               Stack(
                 children: [
-                  Image.asset(makanan.gambarUtama, scale: 0.4),
+                  Image.network(api.url + makanan.gambarUtama, scale: 0.4),
                   Container(
                     margin: EdgeInsets.all(20),
                     child: Row(
@@ -79,7 +81,7 @@ class DetailPage extends StatelessWidget {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10)),
                     child: Column(
-                      children: [Image.asset(makanan.bahan[index].values.first, 
+                      children: [Image.network(api.url + makanan.bahan[index].values.first, 
                       width: 52),
                       Text(makanan.bahan[index].keys.first)
                       ],
@@ -105,7 +107,7 @@ SizedBox listGambarLain() {
                 padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.asset(makanan.gambarLain[index])),
+                  child: Image.network(api.url + makanan.gambarLain[index])),
               );
             }),
           );
@@ -126,9 +128,7 @@ Column attributesIcon(IconData icon, String teks) {
 }
 
 class ButtonBack extends StatelessWidget {
-  const ButtonBack({
-    super.key,
-  });
+  const ButtonBack({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -148,7 +148,7 @@ class ButtonBack extends StatelessWidget {
 }
 
 class ButtonLike extends StatefulWidget {
-  const ButtonLike({super.key});
+  const ButtonLike({Key? key}) : super(key: key);
   
   @override
   State<StatefulWidget> createState() => _ButtonLike();
